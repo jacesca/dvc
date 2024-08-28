@@ -2,7 +2,7 @@
 - Fork the project into your GitHub
 - Clone it into your dektop
 ```
-git clone https://github.com/jacesca/ml-monitoring.git
+git clone https://github.com/jacesca/dvc.git
 ```
 - Setup environment (it requires python3)
 ```

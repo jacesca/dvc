@@ -1,5 +1,5 @@
 ## Others
-- Proyect in GitHub: https://github.com/jacesca/ml-monitoring
+- Proyect in GitHub: https://github.com/jacesca/dvc
 - Launch jupyter notebook
 ```
 jupyter notebook
