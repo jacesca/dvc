@@ -131,3 +131,7 @@ stages:
       hash: md5
       md5: 90255332bcae6f8e45214fe535dc7d06
       size: 76
+    - path: ExampleML2/predictions/predictions.csv
+      hash: md5
+      md5: 827ea61abddb43b599be84da5931b86b
+      size: 25028

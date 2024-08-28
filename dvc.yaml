@@ -1,19 +1,36 @@
+
 stages:
   preprocess:
     # Run the data preprocessing script
-    cmd: python -m ExampleML2.preprocess_dataset ExampleML2/config/params.yaml ExampleML2/data-raw/weather.csv ExampleML2/data-processed/weather.csv
+    cmd: python -m ExampleML2.preprocess_dataset ExampleML2/config/params.yaml
+                                                 ExampleML2/data-raw/weather.csv
+                                                 ExampleML2/data-processed/weather.csv
     deps:
     - ExampleML2/preprocess_dataset.py
     - ExampleML2/data-raw/weather.csv
     - ExampleML2/utils_and_constants.py
     params:
-      - ExampleML2\config\params.yaml:
+      - ExampleML2/config/params.yaml:
         - preprocess
     outs:
     - ExampleML2/data-processed/weather.csv
   train_and_evaluate:
     # Run the model training and evaluation script
-    cmd: python -m ExampleML2.train_and_evaluate ExampleML2/config/params.yaml ExampleML2/data-processed/weather.csv
+    cmd: python -m ExampleML2.train_and_evaluate ExampleML2/config/params.yaml
+                                                 ExampleML2/data-processed/weather.csv
+    plots:
+      # Set the target to the file containing predictions data
+      - ExampleML2/predictions/predictions.csv:
+          # Write the plot template
+          template: confusion
+          x: predicted_label
+          y: true_label
+          x_label: 'Predicted label'
+          y_label: 'True label'
+          title: Confusion matrix
+          # Set the cache parameter to store
+          # plot data in Git repository
+          cache: false
     deps:
     - ExampleML2/metrics_and_plots.py
     - ExampleML2/model.py
@@ -22,7 +39,7 @@ stages:
     - ExampleML2/train_and_evaluate.py
     - ExampleML2/utils_and_constants.py
     params:
-      - ExampleML2\config\params.yaml:
+      - ExampleML2/config/params.yaml:
         - train_and_evaluate
     outs:
     - ExampleML2/images/confusion_matrix.png
