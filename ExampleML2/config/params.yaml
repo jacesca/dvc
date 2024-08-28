@@ -1,3 +1,4 @@
+
 preprocess:
   drop_colnames:
     - Date
@@ -16,6 +17,7 @@ train_and_evaluate:
   shuffle: true
   shuffle_random_state: 1993
   rfc_params:
-    n_estimators: 2
+    # Change number of estimators to 3
+    n_estimators: 3
     max_depth: 2
     random_state: 42
