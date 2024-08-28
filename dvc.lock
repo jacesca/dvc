@@ -119,15 +119,15 @@ stages:
           shuffle: true
           shuffle_random_state: 1993
           rfc_params:
-            n_estimators: 2
+            n_estimators: 3
             max_depth: 2
             random_state: 42
     outs:
     - path: ExampleML2/images/confusion_matrix.png
       hash: md5
-      md5: 73a06de630edd884a6327cc699a2c05e
-      size: 17445
+      md5: b25076750f4222a48122453ee68ef7f8
+      size: 17589
     - path: ExampleML2/metrics/metrics.json
       hash: md5
-      md5: 1309f5092ba8d530648a071216f62452
-      size: 78
+      md5: 90255332bcae6f8e45214fe535dc7d06
+      size: 76
