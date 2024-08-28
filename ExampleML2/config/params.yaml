@@ -1,0 +1,23 @@
+
+preprocess:
+  drop_colnames:
+    - Date
+  target_column: RainTomorrow
+  categorical_features:
+    - Location
+    - WindGustDir
+    - WindDir9am
+    - WindDir3pm
+    - RainToday
+train_and_evaluate:
+  target_column: RainTomorrow
+  train_test_split:
+    test_size: 0.2
+    random_state: 1993
+  shuffle: true
+  shuffle_random_state: 1993
+  rfc_params:
+    # Change number of estimators to 3
+    n_estimators: 3
+    max_depth: 2
+    random_state: 42

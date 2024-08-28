@@ -1,0 +1,7 @@
+[core]
+    remote = mylocalremote
+['remote "s3_remote"']
+    url = s3://mys3bucket
+    connect_timeout = 300
+['remote "mylocalremote"']
+    url = ../remote-storage

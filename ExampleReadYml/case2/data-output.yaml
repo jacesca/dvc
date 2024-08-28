@@ -1,0 +1,13 @@
+mydict:
+  foo: bar
+  key: value
+  the answer: 42
+mylist:
+- 1
+- 42
+- 3.141
+- 1337
+- help
+- €
+mynumber: 14
+mystring: bla

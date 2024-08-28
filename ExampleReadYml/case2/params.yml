@@ -1,0 +1,27 @@
+# Key-value pairs
+a: 1
+b: 1.2
+c: "String value"
+
+# Arrays
+a: [1, 2.2, 3, 4.8]
+b:
+  - 5
+  - "String value"
+
+# Nested dictionaries
+a:
+  b: "Some value"
+  c: "Some other value"
+
+# Data preprocessing paramters
+preprocess:
+  target_column: RainTomorrow
+  categorical_features:
+    - Location
+    - WindGustDir
+
+# Model training/evaluation paramters
+train_and_evaluate:
+  rfc_params:
+    n_estimators: 2

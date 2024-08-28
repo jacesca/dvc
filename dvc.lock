@@ -1,0 +1,133 @@
+schema: '2.0'
+stages:
+  data-preparation:
+    cmd: python -m ExampleML1.split_dataset ExampleML1/data-raw/booking.csv ExampleML1/data-processed/train_A.csv
+      ExampleML1/data-processed/train_B.csv ExampleML1/data-processed/test.csv
+    deps:
+    - path: ExampleML1/data-raw/booking.csv
+      hash: md5
+      md5: 8e30b9da0032c81edebc9f7492dcea14
+      size: 3241399
+    outs:
+    - path: ExampleML1/data-processed/test.csv
+      hash: md5
+      md5: 31e6b80f48ac5efcd9a32d71aef19294
+      size: 584943
+    - path: ExampleML1/data-processed/train_A.csv
+      hash: md5
+      md5: 18e286dd3cd267afc6bbf27539db3887
+      size: 1169596
+    - path: ExampleML1/data-processed/train_B.csv
+      hash: md5
+      md5: c39a9e7969c1003f0d8d394953c9880c
+      size: 1169787
+  model-trainingA:
+    cmd: python -m ExampleML1.model_training ExampleML1/config/params.json ExampleML1/data-processed/train_A.csv
+      ExampleML1/data-processed/test.csv
+    deps:
+    - path: ExampleML1/config/params.json
+      hash: md5
+      md5: 60ba9e66a18b02aa491f449360da7d03
+      size: 738
+    - path: ExampleML1/data-processed/test.csv
+      hash: md5
+      md5: 31e6b80f48ac5efcd9a32d71aef19294
+      size: 584943
+    - path: ExampleML1/data-processed/train_A.csv
+      hash: md5
+      md5: 18e286dd3cd267afc6bbf27539db3887
+      size: 1169596
+  model-trainingB:
+    cmd: python -m ExampleML1.model_training ExampleML1/config/params.json ExampleML1/data-processed/train_B.csv
+      ExampleML1/data-processed/test.csv
+    deps:
+    - path: ExampleML1/config/params.json
+      hash: md5
+      md5: 60ba9e66a18b02aa491f449360da7d03
+      size: 738
+    - path: ExampleML1/data-processed/test.csv
+      hash: md5
+      md5: 31e6b80f48ac5efcd9a32d71aef19294
+      size: 584943
+    - path: ExampleML1/data-processed/train_B.csv
+      hash: md5
+      md5: c39a9e7969c1003f0d8d394953c9880c
+      size: 1169787
+  preprocess:
+    cmd: python -m ExampleML2.preprocess_dataset ExampleML2/config/params.yaml ExampleML2/data-raw/weather.csv
+      ExampleML2/data-processed/weather.csv
+    deps:
+    - path: ExampleML2/data-raw/weather.csv
+      hash: md5
+      md5: 8b80f6484630c3b5b0dacaabc37afaf0
+      size: 2726131
+    - path: ExampleML2/preprocess_dataset.py
+      hash: md5
+      md5: 6c40e1b5b2ec9431f8136cb7ef1685b7
+      size: 4673
+    - path: ExampleML2/utils_and_constants.py
+      hash: md5
+      md5: 26aa4e35d65cdb33c3656cf4ef7e3f2d
+      size: 1081
+    params:
+      ExampleML2/config/params.yaml:
+        preprocess:
+          drop_colnames:
+          - Date
+          target_column: RainTomorrow
+          categorical_features:
+          - Location
+          - WindGustDir
+          - WindDir9am
+          - WindDir3pm
+          - RainToday
+    outs:
+    - path: ExampleML2/data-processed/weather.csv
+      hash: md5
+      md5: 5a799ba072f8399633fbd5b922d7c499
+      size: 10526986
+  train_and_evaluate:
+    cmd: python -m ExampleML2.train_and_evaluate ExampleML2/config/params.yaml ExampleML2/data-processed/weather.csv
+    deps:
+    - path: ExampleML2/data-processed/weather.csv
+      hash: md5
+      md5: 5a799ba072f8399633fbd5b922d7c499
+      size: 10526986
+    - path: ExampleML2/metrics_and_plots.py
+      hash: md5
+      md5: d885711aac188a9f76f703e63a80aa13
+      size: 1840
+    - path: ExampleML2/model.py
+      hash: md5
+      md5: 53724234a149af6a1bf1a7a726ea73f1
+      size: 1697
+    - path: ExampleML2/train_and_evaluate.py
+      hash: md5
+      md5: a7b6e10784f537664fcbf0b046d018db
+      size: 2495
+    - path: ExampleML2/utils_and_constants.py
+      hash: md5
+      md5: 26aa4e35d65cdb33c3656cf4ef7e3f2d
+      size: 1081
+    params:
+      ExampleML2/config/params.yaml:
+        train_and_evaluate:
+          target_column: RainTomorrow
+          train_test_split:
+            test_size: 0.2
+            random_state: 1993
+          shuffle: true
+          shuffle_random_state: 1993
+          rfc_params:
+            n_estimators: 3
+            max_depth: 2
+            random_state: 42
+    outs:
+    - path: ExampleML2/images/confusion_matrix.png
+      hash: md5
+      md5: b25076750f4222a48122453ee68ef7f8
+      size: 17589
+    - path: ExampleML2/metrics/metrics.json
+      hash: md5
+      md5: 90255332bcae6f8e45214fe535dc7d06
+      size: 76
